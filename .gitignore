@@ -1,0 +1,7 @@
+.project
+.idea
+.DS_Store
+/metadata.json
+.chef
+*.pem
+*.bak

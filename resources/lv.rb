@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: lvm
-# Recipe:: default
+# Resource:: lv
 #
 # Copyright 2011, Rob Lewis <rob@kohder.com>
 #
@@ -16,7 +16,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+actions :create
 
-package 'lvm2' do
-  action :upgrade
+attribute :volume_group_name, :kind_of => String, :default => 'vg'
+attribute :logical_volume_name, :kind_of => String, :default => 'lv'
+attribute :stripes, :kind_of => Integer
+attribute :stripe_size, :kind_of => Integer, :default => 8
+attribute :logical_extents, :kind_of => String, :default => '100%VG'
+
+def initialize(name, run_context=nil)
+  super
+  @action = :create
 end
