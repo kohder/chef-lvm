@@ -21,6 +21,9 @@ include Lvm
 
 action :create do
   new_resource.devices.each do |device|
+    if node[:block_device].nil?
+      raise "No block devices found on node."
+    end
     if !node[:block_device][device.split('/').last]
       raise "Device #{device} not found."
     end
