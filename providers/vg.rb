@@ -28,13 +28,14 @@ action :create do
       execute cmd do
         action :nothing
       end.run_action(:run)
+
       vg_info = vg_info(volume_group_name, true)
+      node.set[:lvm][:vg][volume_group_name] = vg_info
+      new_resource.updated_by_last_action(true)
+      node.save
     else
       Chef::Log.info("Volume group \"#{volume_group_name}\" already exists.")
     end
-    node.set[:lvm][:vg][volume_group_name] = vg_info
-    new_resource.updated_by_last_action(true)
-    node.save
   end
 end
 

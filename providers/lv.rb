@@ -31,13 +31,14 @@ action :create do
       execute cmd do
         action :nothing
       end.run_action(:run)
+
       lv_info = lv_info(expanded_lv_name, true)
+      node.set[:lvm][:lv][expanded_lv_name] = lv_info
+      new_resource.updated_by_last_action(true)
+      node.save
     else
       Chef::Log.info("Logical volume \"#{expanded_lv_name}\" already exists.")
     end
-    node.set[:lvm][:lv][expanded_lv_name] = lv_info
-    new_resource.updated_by_last_action(true)
-    node.save
   end
 end
 
