@@ -21,8 +21,11 @@ actions :create
 attribute :volume_group_name, :kind_of => String, :default => 'vg'
 attribute :logical_volume_name, :kind_of => String, :default => 'lv'
 attribute :stripes, :kind_of => Integer
-attribute :stripe_size, :kind_of => Integer, :default => 8
-attribute :logical_extents, :kind_of => String, :default => '100%VG'
+attribute :stripe_size, :kind_of => Integer
+
+# Either logical_extents, or size
+attribute :logical_extents, :kind_of => String
+attribute :size, :kind_of => String
 
 def initialize(name, run_context=nil)
   super
